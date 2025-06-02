@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot name="content">
 
-        <body class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center p-4">
+        <main class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center p-4">
             <div class="w-full max-w-md">
                 <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 transform hover:scale-[1.01] transition-all duration-300">
                     
@@ -13,7 +13,8 @@
                         <p class="text-gray-600">Junte-se a nós hoje mesmo</p>
                     </div>
         
-                    <form class="space-y-5">
+                    <form class="space-y-5" action="{{ route('users.store') }}" method="POST">
+                        @csrf
                         <div>
                             <label for="fullname" class="block text-sm font-semibold text-gray-700 mb-2">
                                 Nome Completo
@@ -112,6 +113,7 @@
                     </div>
                 </div>
             </div>
-        </body>
+        </main>
+
     </x-slot>
 </x-layout>
