@@ -36,7 +36,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-600 text-sm font-medium">Pendentes</p>
-                            <p class="text-2xl font-bold text-yellow-600" id="pending-count">3</p>
+                            <p class="text-2xl font-bold text-yellow-600" id="pending-count"></p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
                         </div>
@@ -85,6 +85,42 @@
             </div>
         
             <div class="space-y-4" id="tasks-container">
+                @foreach ($tasks as $task)
+                    <div class="task-card bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200" data-status="{{ $task->status }}">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ $task->title }}</h4>
+                                <p class="text-gray-600 text-sm mb-3">{{ $task->description }}</p>
+
+                                <div class="flex items-center space-x-4">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $task->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : ($task->status === 'in_progress' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800') }}">
+                                        {{ $task->status === 'pending' ? 'Pendente' : ($task->status === 'in_progress' ? 'Em Progresso' : 'Concluída') }}
+                                    </span>
+                                    <span class="text-gray-500">
+                                        {{ $task->dead_line ? $task->dead_line->format('d/m/Y') : 'Sem prazo' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex space
+                                <button onclick="editTask({{ $task->id }})" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                                </button>
+                                <button onclick="deleteTask({{ $task->id }})" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-xs text-gray-500">
+                                Criado em {{ $task->created_at->format('d/m/Y \à\s H:i') }}
+                            </div>
+                            <select onchange="updateTaskStatus({{ $task->id }}, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                                <option value="pending" {{ $task->status == 'pending' ? 'selected' : '' }}>Pendente</option>
+                                <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>Em Progresso</option>
+                                <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+                @endforeach
+
                 <div class="task-card bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200" data-status="pending">
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex-1">

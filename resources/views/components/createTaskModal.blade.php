@@ -1,6 +1,7 @@
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <form class="relative bg-white rounded-lg shadow-sm dark:bg-white-700">
+        <form class="relative bg-white rounded-lg shadow-sm dark:bg-white-700" action="{{ route('tasks.store') }}" method="POST">
+            @csrf
             <div class="flex items-center justify-between p-4 md:p-5 rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-black">
                     Cadastrar Tarefa
@@ -53,6 +54,7 @@
                     <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">
                         Status
                     </label>
+
                     <select id="status" name="status" class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white" required>
                         <option value="pending">Pendente</option>
                         <option value="in_progress">Em Progresso</option>
@@ -61,7 +63,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="deadline" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <label for="dead_line" class="block text-sm font-semibold text-gray-700 mb-2">
                         Data de Vencimento
                     </label>
                     <div class="relative">
@@ -69,15 +71,15 @@
                         </div>
                         <input 
                             type="date" 
-                            id="deadline" 
-                            name="deadline"
+                            id="dead_line" 
+                            name="dead_line"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white" 
                             required
                         >
                 </div>
             </div>
 
-            <div class="flex items-center gap-4 p-4 md:p-5 rounded-b">
+            <div class="flex items-center gap-4 py-4 rounded-b">
                 <button data-modal-hide="default-modal" type="submit" class="bg-gradient-to-r from-black to-gray-800 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-gray-800 hover:to-black transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Salvar</button>
 
                 <button data-modal-hide="default-modal" type="button" class="bg-gradient-to-r from-red-700 to-black text-white px-6 py-2 rounded-xl font-semibold text-sm transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Cancelar</button>
