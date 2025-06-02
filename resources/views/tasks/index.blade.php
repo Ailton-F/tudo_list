@@ -119,8 +119,8 @@
                                     <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Concluída</option>
                                 </select>
 
-                                <button class="text-blue-600 bg-blue-50 rounded-lg py-1 px-2" onclick="editTask({{ $task->id }})" data-modal-target="default-modal-{{$task->id}}" data-modal-toggle="default-modal-{{$task->id}}">Editar</button>
-                                <button class="text-red-600 bg-red-50 rounded-lg py-1 px-2" onclick="deleteTask({{ $task->id }})">Excluir</button>
+                                <button class="text-blue-600 bg-blue-50 rounded-lg py-1 px-2"  data-modal-target="default-modal-{{$task->id}}" data-modal-toggle="default-modal-{{$task->id}}">Editar</button>
+                                <button class="text-red-600 bg-red-50 rounded-lg py-1 px-2" data-modal-target="delete-modal-{{$task->id}}" data-modal-toggle="delete-modal-{{$task->id}}">Excluir</button>
                             </div>
                     
                         </div>
@@ -200,6 +200,7 @@
 
 @foreach ($tasks as $task)
     <x-editTaskModal :task="$task"/>
+    <x-deleteTaskModal :task="$task"/>
 @endforeach
 
 @include('components.createTaskModal')

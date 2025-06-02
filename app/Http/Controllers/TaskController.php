@@ -80,6 +80,6 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
-        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
+        return redirect()->route('tasks.index')->with('success', 'Task deletada com sucesso!');
     }
 }
