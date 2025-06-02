@@ -6,7 +6,6 @@
             
             <div class="text-center mb-8">
                 <div class="w-20 h-20 bg-gradient-to-br from-black to-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <i class="fas fa-shield-alt text-white text-2xl"></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Bem-vindo</h2>
                 <p class="text-gray-600">Faça login em sua conta</p>
@@ -19,7 +18,6 @@
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-envelope text-gray-400"></i>
                         </div>
                         <input 
                             type="email" 
@@ -37,7 +35,6 @@
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-gray-400"></i>
                         </div>
                         <input 
                             type="password" 
@@ -53,7 +50,6 @@
                     type="submit" 
                     class="w-full bg-gradient-to-r from-black to-gray-800 text-white py-3 px-4 rounded-xl font-semibold text-sm uppercase tracking-wider hover:from-gray-800 hover:to-black transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
                 >
-                    <i class="fas fa-sign-in-alt mr-2"></i>
                     Entrar
                 </button>
             </form>

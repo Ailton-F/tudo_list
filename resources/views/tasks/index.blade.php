@@ -1,6 +1,5 @@
 <x-layout>
     <x-slot name="content">
-
         <header class="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
@@ -13,15 +12,15 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="flex gap-4">
                         <button
-                            onclick="openAddTaskModal()"
+                            data-modal-target="default-modal" 
+                            data-modal-toggle="default-modal"
                             class="bg-gradient-to-r from-black to-gray-800 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-gray-800 hover:to-black transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                             Nova Tarefa
                         </button>
     
                         <button
-                            onclick="openAddTaskModal()"
                             class="bg-gradient-to-r from-red-700 to-black text-white px-6 py-2 rounded-xl font-semibold text-sm transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                             Sair
                         </button>
@@ -31,7 +30,7 @@
         </header>
         
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
+            @include('components.toast')
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div class="flex items-center justify-between">
@@ -40,7 +39,6 @@
                             <p class="text-2xl font-bold text-yellow-600" id="pending-count">3</p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-clock text-yellow-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
@@ -52,7 +50,6 @@
                             <p class="text-2xl font-bold text-blue-600" id="progress-count">2</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-spinner text-blue-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
@@ -64,7 +61,6 @@
                             <p class="text-2xl font-bold text-green-600" id="completed-count">5</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-check-circle text-green-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
@@ -97,11 +93,9 @@
         
                             <div class="flex items-center space-x-4 text-sm">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                    <i class="fas fa-clock mr-1"></i>
                                     Pendente
                                 </span>
                                 <span class="text-gray-500">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
                                     15/12/2024
                                 </span>
                             </div>
@@ -109,10 +103,8 @@
         
                         <div class="flex space-x-2">
                             <button onclick="editTask(1)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-edit"></i>
                             </button>
                             <button onclick="deleteTask(1)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -137,11 +129,9 @@
         
                             <div class="flex items-center space-x-4 text-sm">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    <i class="fas fa-spinner mr-1"></i>
                                     Em Progresso
                                 </span>
                                 <span class="text-gray-500">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
                                     20/12/2024
                                 </span>
                             </div>
@@ -149,10 +139,8 @@
         
                         <div class="flex space-x-2">
                             <button onclick="editTask(2)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-edit"></i>
                             </button>
                             <button onclick="deleteTask(2)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -177,11 +165,9 @@
         
                             <div class="flex items-center space-x-4 text-sm">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    <i class="fas fa-check-circle mr-1"></i>
                                     Concluída
                                 </span>
                                 <span class="text-gray-500">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
                                     10/12/2024
                                 </span>
                             </div>
@@ -189,10 +175,8 @@
         
                         <div class="flex space-x-2">
                             <button onclick="editTask(3)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-edit"></i>
                             </button>
                             <button onclick="deleteTask(3)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -217,7 +201,6 @@
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-gray-900" id="modal-title">Nova Tarefa</h3>
                         <button onclick="closeModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-times"></i>
                         </button>
                     </div>
         
@@ -278,5 +261,6 @@
                 </div>
             </div>
         </div>
+        @include('components.createTaskModal')
     </x-slot>
 </x-layout>

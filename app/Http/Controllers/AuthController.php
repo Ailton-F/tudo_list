@@ -18,6 +18,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Logic for user logout
+        
     }
 }

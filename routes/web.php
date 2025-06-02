@@ -11,6 +11,7 @@ Route::prefix('auth')->group(function(){
     Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 });
 
-Route::resource('tasks', TaskController::class);
+Route::resource('tasks', TaskController::class)->middleware(['auth']);
 
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)
+    ->only(['store']);

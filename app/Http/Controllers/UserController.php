@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -33,9 +34,12 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+        
         $user = User::create($data);
-        return back()->with('success', 'User created successfully!');
+        $user->password = bcrypt($data['password']);
+        $user->save();
+        Auth::login($user);
+        return redirect()->route('tasks.index')->with('success', 'User registered successfully!');
     }
 
     /**
