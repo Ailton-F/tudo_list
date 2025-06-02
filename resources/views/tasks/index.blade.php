@@ -14,8 +14,8 @@
 
                     <div class="flex gap-4">
                         <button
-                            data-modal-target="default-modal" 
-                            data-modal-toggle="default-modal"
+                            data-modal-target="create-task-modal" 
+                            data-modal-toggle="create-task-modal"
                             class="bg-gradient-to-r from-black to-gray-800 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-gray-800 hover:to-black transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                             Nova Tarefa
                         </button>
@@ -36,7 +36,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-600 text-sm font-medium">Pendentes</p>
-                            <p class="text-2xl font-bold text-yellow-600" id="pending-count"></p>
+                            <p class="text-2xl font-bold text-yellow-600" id="pending-count">{{ $tasks->where('status', 'pending')->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
                         </div>
@@ -47,7 +47,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-600 text-sm font-medium">Em Progresso</p>
-                            <p class="text-2xl font-bold text-blue-600" id="progress-count">2</p>
+                            <p class="text-2xl font-bold text-blue-600" id="progress-count">{{ $tasks->where('status', 'in_progress')->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                         </div>
@@ -58,7 +58,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-600 text-sm font-medium">Concluídas</p>
-                            <p class="text-2xl font-bold text-green-600" id="completed-count">5</p>
+                            <p class="text-2xl font-bold text-green-600" id="completed-count">{{ $tasks->where('status', 'completed')->count() }}</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                         </div>
@@ -112,122 +112,20 @@
                             <div class="text-xs text-gray-500">
                                 Criado em {{ $task->created_at->format('d/m/Y \à\s H:i') }}
                             </div>
-                            <select onchange="updateTaskStatus({{ $task->id }}, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                                <option value="pending" {{ $task->status == 'pending' ? 'selected' : '' }}>Pendente</option>
-                                <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>Em Progresso</option>
-                                <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Concluída</option>
-                            </select>
+                            <div class="flex items-center space-x-4">
+                                <select onchange="updateTaskStatus({{ $task->id }}, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                                    <option value="pending" {{ $task->status == 'pending' ? 'selected' : '' }}>Pendente</option>
+                                    <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>Em Progresso</option>
+                                    <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Concluída</option>
+                                </select>
+
+                                <button class="text-blue-600 bg-blue-50 rounded-lg py-1 px-2" onclick="editTask({{ $task->id }})" data-modal-target="default-modal-{{$task->id}}" data-modal-toggle="default-modal-{{$task->id}}">Editar</button>
+                                <button class="text-red-600 bg-red-50 rounded-lg py-1 px-2" onclick="deleteTask({{ $task->id }})">Excluir</button>
+                            </div>
+                    
                         </div>
                     </div>
                 @endforeach
-
-                <div class="task-card bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200" data-status="pending">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-semibold text-gray-900 mb-2">Implementar sistema de autenticação</h4>
-                            <p class="text-gray-600 text-sm mb-3">Criar telas de login, registro e recuperação de senha com validação completa</p>
-        
-                            <div class="flex items-center space-x-4 text-sm">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                    Pendente
-                                </span>
-                                <span class="text-gray-500">
-                                    15/12/2024
-                                </span>
-                            </div>
-                        </div>
-        
-                        <div class="flex space-x-2">
-                            <button onclick="editTask(1)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                            </button>
-                            <button onclick="deleteTask(1)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                            </button>
-                        </div>
-                    </div>
-        
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500">
-                            Criado em 10/12/2024 às 14:30
-                        </div>
-                        <select onchange="updateTaskStatus(1, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                            <option value="pending" selected>Pendente</option>
-                            <option value="in_progress">Em Progresso</option>
-                            <option value="completed">Concluída</option>
-                        </select>
-                    </div>
-                </div>
-        
-                <div class="task-card bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200" data-status="in_progress">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-semibold text-gray-900 mb-2">Design do dashboard</h4>
-                            <p class="text-gray-600 text-sm mb-3">Criar interface moderna e responsiva para o painel administrativo</p>
-        
-                            <div class="flex items-center space-x-4 text-sm">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    Em Progresso
-                                </span>
-                                <span class="text-gray-500">
-                                    20/12/2024
-                                </span>
-                            </div>
-                        </div>
-        
-                        <div class="flex space-x-2">
-                            <button onclick="editTask(2)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                            </button>
-                            <button onclick="deleteTask(2)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                            </button>
-                        </div>
-                    </div>
-        
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500">
-                            Criado em 12/12/2024 às 09:15
-                        </div>
-                        <select onchange="updateTaskStatus(2, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                            <option value="pending">Pendente</option>
-                            <option value="in_progress" selected>Em Progresso</option>
-                            <option value="completed">Concluída</option>
-                        </select>
-                    </div>
-                </div>
-        
-                <div class="task-card bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-200" data-status="completed">
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex-1">
-                            <h4 class="text-lg font-semibold text-gray-900 mb-2">Configurar banco de dados</h4>
-                            <p class="text-gray-600 text-sm mb-3">Estruturar tabelas e relacionamentos do sistema</p>
-        
-                            <div class="flex items-center space-x-4 text-sm">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    Concluída
-                                </span>
-                                <span class="text-gray-500">
-                                    10/12/2024
-                                </span>
-                            </div>
-                        </div>
-        
-                        <div class="flex space-x-2">
-                            <button onclick="editTask(3)" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                            </button>
-                            <button onclick="deleteTask(3)" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                            </button>
-                        </div>
-                    </div>
-        
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500">
-                            Criado em 08/12/2024 às 16:45
-                        </div>
-                        <select onchange="updateTaskStatus(3, this.value)" class="text-sm border border-gray-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                            <option value="pending">Pendente</option>
-                            <option value="in_progress">Em Progresso</option>
-                            <option value="completed" selected>Concluída</option>
-                        </select>
-                    </div>
-                </div>
             </div>
         </main>
         
@@ -297,6 +195,11 @@
                 </div>
             </div>
         </div>
-        @include('components.createTaskModal')
     </x-slot>
 </x-layout>
+
+@foreach ($tasks as $task)
+    <x-editTaskModal :task="$task"/>
+@endforeach
+
+@include('components.createTaskModal')

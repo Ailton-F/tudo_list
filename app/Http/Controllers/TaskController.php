@@ -38,7 +38,7 @@ class TaskController extends Controller
         ]);
         $data['user_id'] = Auth::user()->id;
         $task = Task::create($data);
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
+        return redirect()->route('tasks.index')->with('success', 'Task criada com sucesso!');
     }
 
     /**
@@ -62,7 +62,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:pending,in_progress,completed',
+            'dead_line' => 'nullable|date',
+        ]);
+        $task->update($data);
+        return redirect()->route('tasks.index')->with('success', 'Tasak atualizada com sucesso!');
     }
 
     /**
@@ -70,6 +78,8 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
     }
 }
