@@ -19,11 +19,13 @@
                             class="bg-gradient-to-r from-black to-gray-800 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-gray-800 hover:to-black transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                             Nova Tarefa
                         </button>
-    
-                        <button
-                            class="bg-gradient-to-r from-red-700 to-black text-white px-6 py-2 rounded-xl font-semibold text-sm transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                            Sair
-                        </button>
+                        <form action="{{ route('auth.logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button
+                                class="bg-gradient-to-r from-red-700 to-black text-white px-6 py-2 rounded-xl font-semibold text-sm transform hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black" type="submit">
+                                Sair
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
