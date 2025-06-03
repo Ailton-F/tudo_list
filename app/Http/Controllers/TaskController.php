@@ -11,9 +11,17 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::where('user_id', Auth::id())->get();
+        $data = $request->input('status');
+        if($data) {
+            $tasks = Task::where('user_id', Auth::id())
+                ->where('status', $data)
+                ->get();
+        } else {
+            $tasks = Task::where('user_id', Auth::id())->get();
+        }
+
         return view('tasks.index', compact('tasks'));
     }
 
@@ -81,5 +89,12 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deletada com sucesso!');
+    }
+
+    public function complete(Task $task)
+    {
+        $task->status = 'completed';
+        $task->save();
+        return redirect()->route('tasks.index')->with('success', 'Task marcada como completa!');
     }
 }

@@ -12,6 +12,7 @@ Route::prefix('auth')->group(function(){
     Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 });
 
+Route::patch('/tasks/complete/{task}', [TaskController::class, 'complete'])->name('tasks.complete')->middleware(['auth']);
 Route::resource('tasks', TaskController::class)->middleware(['auth']);
 
 Route::resource('users', UserController::class)
