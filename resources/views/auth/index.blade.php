@@ -1,6 +1,7 @@
 <x-layout>
     <x-slot name="content">
     <body class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center p-4">
+    @include('components.toast')
     <div class="w-full max-w-md">
         <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 transform hover:scale-[1.02] transition-all duration-300">
             
@@ -11,7 +12,8 @@
                 <p class="text-gray-600">Faça login em sua conta</p>
             </div>
 
-            <form class="space-y-6">
+            <form class="space-y-6" action="{{ route('auth.authenticate') }}" method="POST">
+                @csrf
                 <div>
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
                         Email
@@ -20,8 +22,9 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         </div>
                         <input 
-                            type="email" 
-                            id="email" 
+                            type="email"
+                            id="email"
+                            name="email"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white" 
                             placeholder="seu@email.com"
                             required
@@ -37,6 +40,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         </div>
                         <input 
+                            name="password"
                             type="password" 
                             id="password" 
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white" 

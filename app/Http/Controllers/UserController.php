@@ -36,7 +36,6 @@ class UserController extends Controller
         ]);
         
         $user = User::create($data);
-        $user->password = bcrypt($data['password']);
         $user->save();
         Auth::login($user);
         return redirect()->route('tasks.index')->with('success', 'User registered successfully!');

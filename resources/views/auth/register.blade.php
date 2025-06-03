@@ -102,7 +102,7 @@
                     </form>
                     <div class="text-center mt-6">
                         <span class="text-gray-600">Já tem uma conta? </span>
-                        <a href="{{ route('auth.login') }}" class="font-semibold text-black hover:underline transition-all duration-200">
+                        <a href="{{ route('login') }}" class="font-semibold text-black hover:underline transition-all duration-200">
                             Faça login
                         </a>
                     </div>
