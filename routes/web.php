@@ -5,6 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 
+Route::get('/', function () {
+    return redirect()->route('tasks.index');
+})->name('home');
+
 Route::prefix('auth')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
